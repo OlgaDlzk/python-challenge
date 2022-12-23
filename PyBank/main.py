@@ -6,10 +6,21 @@ print("------------------------------")
 
 Total_Months = 0
 Total = 0
-Average_Change = 0
+Delta_list = []
+Month = []
+Average = 0
+GreatestIncrease = 0
+BestMonth = " "
+GreatestDecrease = 0
+WorstMonth = " "
+
+# Max_Increase = ["", 0]
+# Max_Decrease = ["", 9999999999]
+
 
 # load csv file
 csvpath = os.path.join('Resources', 'budget_data.csv')
+outputfile = os.path.join('analysis', 'budget_analysis.txt')
 
 #open csv file
 with open(csvpath) as csvfile:
@@ -18,17 +29,50 @@ with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
 
     csv_header = next(csvreader)
+    firstrow = next(csvreader)
 
-    # Read each row of data after the header
+    Total_Months += 1
+    Total += int(firstrow[1])
+    Previous = int(firstrow[1])
+
+    # 
     for row in csvreader:
         Total_Months = Total_Months + 1
-        Total = Total + int(row[1])
+        Total = Total + int(row[1])    
+        Delta = int(row[1]) - Previous
+        Previous = int(row[1])
+        Delta_list.append(Delta)
+        Month.append(row[0])
+        Average = round(sum(Delta_list)/len(Delta_list), 2)
+
+        if Delta > GreatestIncrease:
+                BestMonth = (row[0])
+                GreatestIncrease = Delta
+
+        if Delta < GreatestDecrease:
+                WorstMonth = (row[0])
+                GreatestDecrease = Delta
         
-    Average_Change = Total / Total_Months
+                
+        # if Delta > Max_Increase[1]:
+           # Max_Increase[0] = row[0]
+            # Max_Increase[1] = Delta
+
+        # if Delta < Max_Decrease[1]:
+            # Max_Decrease[0] = row[0]
+            # Max_Decrease[1] = Delta
+            
 
     print("Total Months: " + str(Total_Months))
-    print("Total: " + str(Total))  
-    print("Average Change: " + str(Average_Change)) 
+    print("Total: " + "$" + str(Total)) 
+    print("Average Change: " + "$" + str(Average)) 
+    print("Greatest increase in profits: " + BestMonth + " ($"+ str(GreatestIncrease) + ")")
+    print("Greatest decrease in profits: " + WorstMonth + " ($"+ str(GreatestDecrease) + ")")
+    # print("Greatest Increase in Profits: " + str(Max_Increase))
+    # print("Greatest Decrease in Profits: " + str(Max_Decrease))
+
+   
+
 
   
 
