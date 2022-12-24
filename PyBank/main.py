@@ -26,7 +26,7 @@ outputfile = os.path.join('analysis', 'budget_analysis.txt')
 #open csv file
 with open(csvpath) as csvfile:
 
-    # CSV reader specifies delimiter and variable that holds contents
+    # CSV reader specifies variable that holds contents
     csvreader = csv.reader(csvfile)
 
     csv_header = next(csvreader)
@@ -72,18 +72,15 @@ print("Greatest decrease in profits: " + WorstMonth + " ($"+ str(GreatestDecreas
 # print("Greatest Increase in Profits: " + str(Max_Increase))
 # print("Greatest Decrease in Profits: " + str(Max_Decrease))
 
+# printing data in txt file
 outputfile = open("budget_analysis.txt", "w")
 outputfile.write("Financial Analysis \n")
-
 outputfile.write("---------------------- \n")
-
 outputfile.write("Total Months: " + str(Total_Months))
 outputfile.write(" \nTotal: " + "$" + str(Total))
 outputfile.write(" \nAverage Change: " + "$" + str(Average))
 outputfile.write(" \nGreatest increase in profits: " + BestMonth + " ($"+ str(GreatestIncrease) + ")")
 outputfile.write(" \nGreatest decrease in profits: " + WorstMonth + " ($"+ str(GreatestDecrease) + ")")
-
-
 outputfile.close()
     
    
