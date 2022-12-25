@@ -37,5 +37,17 @@ with open(csvpath) as csvfile:
 
 
 print("Total Votes: "+ str(total_vote))
-print(candidates_list)
+print("----------------------------------")
+# print(candidates_list)
+
+# use for loop t loop through the dict and tuple unpacking to gain
+# more control over key-value pair
+for key, value in candidates_list.items():
+    print(key + ": " + "{:.3f}".format(value/total_vote*100) + "$" + " " + "(" + str(value) + ")")
+
+print("----------------------------------")
+
+# determine the popular vote winner by running loop with if else statements
+
+
 
