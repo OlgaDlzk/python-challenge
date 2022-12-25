@@ -54,16 +54,18 @@ print("Winner: " + winner)
 print("-----------------------------------")
 
 # printing data in txt file
-outputfile = open("election_analysis.txt", "w")
-outputfile.write("Election Results \n")
-outputfile.write("\n---------------------- \n")
-outputfile.write("\nTotal Votes: " + str(total_vote) + " \n")
-outputfile.write("\n---------------------- \n")
-outputfile.write("\n")
-for key, value in candidates_list.items():
-    outputfile.write(key + ": " + "{:.3f}".format(value/total_vote*100) + "% (" + str(value) + ")")
-    outputfile.write("\n")
-outputfile.write("\n---------------------- \n")
-outputfile.write("Winner: " + winner)
-outputfile.write("\n---------------------- \n")
-outputfile.close()
+with open(outputfile, "w") as file:
+    file.write("Election Results \n")
+    file.write("\n---------------------- \n")
+    file.write("\nTotal Votes: " + str(total_vote) + " \n")
+    file.write("\n---------------------- \n")
+    file.write("\n")
+
+    for key, value in candidates_list.items():
+        file.write(key + ": " + "{:.3f}".format(value/total_vote*100) + "% (" + str(value) + ")")
+        file.write("\n")
+        
+    file.write("\n---------------------- \n")
+    file.write("Winner: " + winner)
+    file.write("\n---------------------- \n")
+    
