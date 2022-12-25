@@ -6,13 +6,14 @@ print("---------------------")
 
 # load csv file
 csvpath = os.path.join('Resources', 'election_data.csv')
+# create output file
+outputfile = os.path.join('analysis', 'election_data.txt')
 
 # set up variables
-
 # amount of total rows, not uncluding the header
 total_vote = 0
 
-# dict with key-value pair candidate: numer of votes
+# dict with key-value pair candidate: number of votes
 candidates_list = {}
 
 # variables for the popular votes winner
@@ -35,19 +36,34 @@ with open(csvpath) as csvfile:
         else:
             candidates_list[row[2]] += 1    
 
-
 print("Total Votes: "+ str(total_vote))
 print("----------------------------------")
-# print(candidates_list)
 
 # use for loop t loop through the dict and tuple unpacking to gain
 # more control over key-value pair
 for key, value in candidates_list.items():
-    print(key + ": " + "{:.3f}".format(value/total_vote*100) + "$" + " " + "(" + str(value) + ")")
+    print(key + ": " + "{:.3f}".format(value/total_vote*100) + "% (" + str(value) + ")")
+    
+    # determine the popular vote winner
+    if value > popular_votes:
+        popular_votes = value
+        winner = key 
 
 print("----------------------------------")
+print("Winner: " + winner)
+print("-----------------------------------")
 
-# determine the popular vote winner by running loop with if else statements
-
-
-
+# printing data in txt file
+outputfile = open("election_analysis.txt", "w")
+outputfile.write("Election Results \n")
+outputfile.write("\n---------------------- \n")
+outputfile.write("\nTotal Votes: " + str(total_vote) + " \n")
+outputfile.write("\n---------------------- \n")
+outputfile.write("\n")
+for key, value in candidates_list.items():
+    outputfile.write(key + ": " + "{:.3f}".format(value/total_vote*100) + "% (" + str(value) + ")")
+    outputfile.write("\n")
+outputfile.write("\n---------------------- \n")
+outputfile.write("Winner: " + winner)
+outputfile.write("\n---------------------- \n")
+outputfile.close()
